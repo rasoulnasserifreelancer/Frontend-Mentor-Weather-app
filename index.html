@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="./mainstyle.css" />
     <script src="./app.js" type="module" defer></script>
     <script src="./getweatherdata.js" type="module" defer></script>
+    <script src="./getElements.js" type="module" defer></script>
     <title>Frontend Mentor | Weather app</title>
   </head>
   <body>
@@ -96,6 +97,9 @@
         </div>
       </section>
       <section class="wether_info">
+        <div class="error-accessing-location">
+          <h2>We Couldn't access your location, please try searching for your location.</h2>
+        </div>
         <div class="wether_info__current">
           <div class="wether_info_current_poster_city">
             <div class="wether_info_current_poster_city_location_date">

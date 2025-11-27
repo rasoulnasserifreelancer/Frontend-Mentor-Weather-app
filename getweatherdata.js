@@ -67,6 +67,66 @@ export const getCurrentWeather = async (latitude, Longitude) => {
   }
 }
 
+export const getDailyWeather = async (latitude, longitude) => {
+    console.log("running Daily wether ...")
+
+  console.log(latitude, longitude, "in getwetherinfo module")
+  try {
+    
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      const error = await response.json();
+      throw error;
+    } else {
+      const result = await response.json();
+      return result;
+    }
+  } catch (error) {
+    if (error.error) {
+      return `${error.reason}`;
+    } else {
+      throw error;
+    }
+  }
+}
+
+export const getHourlyWeather = async (latitude, longitude) => {
+    console.log("running Daily wether ...")
+
+  console.log(latitude, longitude, "in getwetherinfo module")
+  try {
+    
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=temperature_2m`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      const error = await response.json();
+      throw error;
+    } else {
+      const result = await response.json();
+      return result;
+    }
+  } catch (error) {
+    if (error.error) {
+      return `${error.reason}`;
+    } else {
+      throw error;
+    }
+  }
+}
+
+
+
+export const getwetherinfo = async (latitude, longitude) => {
+  const currentWeatherInfo = await getCurrentWeather(latitude, longitude)
+  const dailyWeatherInfo = await getDailyWeather(latitude, longitude);
+  const hourlyWeatherInfo = await getHourlyWeather(latitude, longitude);
+  return [currentWeatherInfo, dailyWeatherInfo, hourlyWeatherInfo]
+}
+
+
+
+
 
 export const getCurrentCityByLonAndLat = async(latitude, longitude) => {
   console.log("running getcurrent city ...")

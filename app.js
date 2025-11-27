@@ -1,48 +1,126 @@
-import { getCurrentWeather, getCurrentCityByLonAndLat,matchWetherCodeToIcon } from "./getweatherdata.js";
+import {
+  getwetherinfo,
+  getCurrentCityByLonAndLat,
+  matchWetherCodeToIcon,
+} from "./getweatherdata.js";
+
+import {
+  getCurrentWeatherElements,
+  getDailyWeatherElements,
+  getHourlyWeatherElements,
+  getErrorAccessingLocationElements,
+} from "./getElements.js";
 
 let currentLatitude;
 let currentLlongitude;
 let currentLocation;
-
+let weatherInfo;
 
 window.onload = async () => {
-    navigator.geolocation.getCurrentPosition(async (pos)=>{
-        currentLatitude = pos.coords.latitude;
-        currentLlongitude = pos.coords.longitude;
-        currentLocation =  await getCurrentCityByLonAndLat(currentLatitude, currentLlongitude)
-        getCurrentWeather(currentLatitude,currentLlongitude).then(setWetherInfo, setFallback);
-    }, (err)=>{
-        console.error(err)
-    })
-}
+  navigator.geolocation.getCurrentPosition(
+    setPsitionCallbck,
+    setFallbackForLocation
+  );
+};
 
-const setWetherInfo = (res) => {
-    console.log("running setwether info callback")
-    setCurrentWetherInfo(res)    
-}
+const setWetherInfo = (weatherInfo) => {
+  console.log("running setwether info callback");
+  setCurrentWetherInfo(weatherInfo[0]);
+  setDailyWetherInfo(weatherInfo[1]);
+  setHourlyWetherInfo(weatherInfo[2]);
+};
 
+const setCurrentWetherInfo = (res) => {
+  getCurrentWeatherElements().precipitationElement.innerText = `${
+    res?.precipitation ?? "--"
+  }`;
+  getCurrentWeatherElements().windElement.innerText = `${
+    res?.wind_speed_10m ?? "--"
+  }`;
+  getCurrentWeatherElements().humidityElement.innerText = `${
+    res?.relative_humidity_2m ?? "--"
+  }`;
+  getCurrentWeatherElements().apparentTemp.innerText = `${
+    res?.apparent_temperature ?? "--"
+  }`;
+  getCurrentWeatherElements().degElement.innerText = `${
+    res?.temperature_2m ?? "--"
+  }`;
+  getCurrentWeatherElements().poster_weather_city_icon.src =
+    matchWetherCodeToIcon(res?.weather_code);
+  getCurrentWeatherElements().locationElement.innerText = `${
+    currentLocation?.city ?? "--"
+  }, ${currentLocation?.country ?? "--"}`;
+  getCurrentWeatherElements().dateElement.innerText = `${
+    new Date(res?.time)?.toDateString() ?? "--"
+  }`;
+};
 
-function setCurrentWetherInfo(res){
-    const locationElement = document.getElementById('location');
-    const dateElement = document.getElementById('date');
-    const poster_weather_city_icon = document.querySelector('.wether_info_current_poster_city_location_degree_icon_icon img');
-    const degElement = document.getElementById('deg');
-    const apparentTemp = document.getElementById('apparent-temp');
-    const humidityElement = document.getElementById('humidity');
-    const windElement = document.getElementById('wind');
-    const precipitationElement = document.getElementById('precipitation');
+const setDailyWetherInfo = (res) => {
+    console.log(res.daily.time)
+    getDailyWeatherElements().dayNameElements.forEach((p,index) => {
+        console.log(p, index)
+        p.innerText = new Date(res.daily.time[index]).toString().split(' ')[0]} )
+    console.log(new Date(res.daily.time[0]).toString().split(' ')[0])
+    getDailyWeatherElements().dayMaxElements.forEach((max, index) => max.innerText = res.daily.temperature_2m_max[index])
+    getDailyWeatherElements().dayMinElements.forEach((min, index) => min.innerText = res.daily.temperature_2m_min[index])
+    getDailyWeatherElements().dayIconImgs.forEach((img, index) => img.src = matchWetherCodeToIcon(res.daily.weather_code[index]))
+    console.log(res.daily.temperature_2m_max)
+    console.log(res.daily.temperature_2m_min)
+    console.log(res.daily.weather_code)
+};
 
-    precipitationElement.innerText = `${res?.precipitation ?? "--"}`
-    windElement.innerText = `${res?.wind_speed_10m ?? '--'}`
-    humidityElement.innerText = `${res?.relative_humidity_2m ?? '--'}`
-    apparentTemp.innerText = `${res?.apparent_temperature ?? '--'}`
-    degElement.innerText = `${res?.temperature_2m ?? '--'}`;
-    poster_weather_city_icon.src = matchWetherCodeToIcon(res?.weather_code);
-    locationElement.innerText = `${currentLocation?.city ?? '--'}, ${currentLocation?.country ?? '--'}`;
-    dateElement.innerText = `${new Date(res?.time)?.toDateString() ?? "--"}`
-}
+const setHourlyWetherInfo = (res) => {
+    // console.log(res)
+};
 
+const setFallbackForApi = (err) => {};
 
-function setFallback(err){
-    console.log(err);
-}
+const setFallbackForLocation = (err) => {
+  hideWeatherInfoElements();
+  showErrorAccessingLocationElement();
+};
+
+const setPsitionCallbck = async (pos) => {
+  currentLatitude = pos.coords.latitude;
+  currentLlongitude = pos.coords.longitude;
+  hideErrorAccessingLocationElement()
+  try {
+    currentLocation = await getCurrentCityByLonAndLat(
+      currentLatitude,
+      currentLlongitude
+    );
+
+    weatherInfo = await Promise.all(
+      await getwetherinfo(currentLatitude, currentLlongitude)
+    );
+    setWetherInfo(weatherInfo);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+const setLoadingState = () => {};
+
+const hideWeatherInfoElements = () => {
+  getCurrentWeatherElements().CurrentWeatherElement.style.display = "none";
+  getDailyWeatherElements().DailyElement.style.display = "none";
+  getHourlyWeatherElements().HourlyElement.style.display = "none";
+};
+
+const showWeatherInfoElements = () => {
+  getCurrentWeatherElements().CurrentWeatherElement.style.display = "flex";
+  getDailyWeatherElements().DailyElement.style.display = "flex";
+  getHourlyWeatherElements().HourlyElement.style.display = "block";
+};
+
+const showErrorAccessingLocationElement = () => {
+  getErrorAccessingLocationElements().ErrorLocationContainer.style.display =
+    "flex";
+};
+
+const hideErrorAccessingLocationElement = () => {
+  getErrorAccessingLocationElements().ErrorLocationContainer.style.display =
+    "none";
+};

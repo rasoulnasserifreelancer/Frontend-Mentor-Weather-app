@@ -7,7 +7,6 @@ const stormSky = "./assets/images/icon-storm.webp";
 const fogySky = "./assets/images/icon-fog.webp";
 const drizzleSky = "./assets/images/icon-drizzle.webp";
 
-
 class NotFoundError extends Error {}
 
 const wethercode = {
@@ -21,33 +20,51 @@ const wethercode = {
   61: rainySky,
 };
 
-
-export const matchWetherCodeToIcon = (code)=>{
-    switch(code) {
-      case 0 :
-        return sunnySky;
-      case 1,2 : 
+export const matchWetherCodeToIcon = (code) => {
+  switch (code) {
+    case 0:
+      return sunnySky;
+    case 1:
+    case 2:
       return partlycloudySky;
-      case 3 : 
+    case 3:
       return overcastSky;
-      case 45, 48 :
-        return fogySky;
-      case 51, 53, 55, 56, 57 : 
+    case 45: 
+    case 48:
+      return fogySky;
+    case 51:
+    case 55: 
+    case 56: 
+    case 57:
+    case 53: 
       return drizzleSky;
-      case 61, 63, 65, 66, 67, 80, 81, 82 :
-        return rainySky
-      case 71, 73, 75, 77, 85, 86 : 
-      return snowySky
-      case 95, 96, 99 :
-        return stormSky
-    }
-}
-
+    case 61: 
+    case 63:
+    case 65: 
+    case 66:
+    case 67:
+    case 80:
+    case 81: 
+    case 82:
+      return rainySky;
+    case 71:
+    case 73:
+    case 75: 
+    case 77: 
+    case 85: 
+    case 86:
+      return snowySky;
+    case 95:
+    case 96: 
+    case 99:
+      return stormSky;
+  }
+};
 
 export const getCurrentWeather = async (latitude, Longitude) => {
-    console.log("running getcurrent wether ...")
+  console.log("running getcurrent wether ...");
 
-  console.log(latitude, Longitude, "in getwetherinfo module")
+  console.log(latitude, Longitude, "in getwetherinfo module");
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${Longitude}&current=temperature_2m,apparent_temperature,precipitation,wind_speed_10m,relative_humidity_2m,cloud_cover,weather_code`;
     const response = await fetch(url);
@@ -65,14 +82,13 @@ export const getCurrentWeather = async (latitude, Longitude) => {
       throw error;
     }
   }
-}
+};
 
 export const getDailyWeather = async (latitude, longitude) => {
-    console.log("running Daily wether ...")
+  console.log("running Daily wether ...");
 
-  console.log(latitude, longitude, "in getwetherinfo module")
+  console.log(latitude, longitude, "in getwetherinfo module");
   try {
-    
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code`;
     const response = await fetch(url);
     if (!response.ok) {
@@ -89,14 +105,13 @@ export const getDailyWeather = async (latitude, longitude) => {
       throw error;
     }
   }
-}
+};
 
 export const getHourlyWeather = async (latitude, longitude) => {
-    console.log("running Daily wether ...")
+  console.log("running Daily wether ...");
 
-  console.log(latitude, longitude, "in getwetherinfo module")
+  console.log(latitude, longitude, "in getwetherinfo module");
   try {
-    
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=temperature_2m`;
     const response = await fetch(url);
     if (!response.ok) {
@@ -113,38 +128,32 @@ export const getHourlyWeather = async (latitude, longitude) => {
       throw error;
     }
   }
-}
-
-
+};
 
 export const getwetherinfo = async (latitude, longitude) => {
-  const currentWeatherInfo = await getCurrentWeather(latitude, longitude)
+  const currentWeatherInfo = await getCurrentWeather(latitude, longitude);
   const dailyWeatherInfo = await getDailyWeather(latitude, longitude);
   const hourlyWeatherInfo = await getHourlyWeather(latitude, longitude);
-  return [currentWeatherInfo, dailyWeatherInfo, hourlyWeatherInfo]
-}
+  return [currentWeatherInfo, dailyWeatherInfo, hourlyWeatherInfo];
+};
 
-
-
-
-
-export const getCurrentCityByLonAndLat = async(latitude, longitude) => {
-  console.log("running getcurrent city ...")
+export const getCurrentCityByLonAndLat = async (latitude, longitude) => {
+  console.log("running getcurrent city ...");
   const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}%2C+${longitude}&key=98daf9091ea147d7aebc14fc4afda562`;
   try {
     const response = await fetch(url);
     const result = await response.json();
-    console.log(result.results[0])
-    const city = result?.results[0]?.components?.city
-    const country = result?.results[0]?.components?.country
+    console.log(result.results[0]);
+    const city = result?.results[0]?.components?.city;
+    const country = result?.results[0]?.components?.country;
     if (!city || !country) {
-      throw new NotFoundError("location not found")
+      throw new NotFoundError("location not found");
     }
-    return {city, country}
-  }catch(err){
+    return { city, country };
+  } catch (err) {
     if (err instanceof NotFoundError) {
-      return err.message
+      return err.message;
     }
-    throw err
+    throw err;
   }
-}
+};

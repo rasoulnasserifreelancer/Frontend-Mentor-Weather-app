@@ -57,21 +57,32 @@ const setCurrentWetherInfo = (res) => {
 };
 
 const setDailyWetherInfo = (res) => {
-    console.log(res.daily.time)
-    getDailyWeatherElements().dayNameElements.forEach((p,index) => {
-        console.log(p, index)
-        p.innerText = new Date(res.daily.time[index]).toString().split(' ')[0]} )
-    console.log(new Date(res.daily.time[0]).toString().split(' ')[0])
-    getDailyWeatherElements().dayMaxElements.forEach((max, index) => max.innerText = res.daily.temperature_2m_max[index])
-    getDailyWeatherElements().dayMinElements.forEach((min, index) => min.innerText = res.daily.temperature_2m_min[index])
-    getDailyWeatherElements().dayIconImgs.forEach((img, index) => img.src = matchWetherCodeToIcon(res.daily.weather_code[index]))
-    console.log(res.daily.temperature_2m_max)
-    console.log(res.daily.temperature_2m_min)
-    console.log(res.daily.weather_code)
+  console.log(res.daily.time);
+  getDailyWeatherElements().dayNameElements.forEach((p, index) => {
+    console.log(p, index);
+    p.innerText = new Date(res.daily.time[index]).toString().split(" ")[0];
+  });
+
+  getDailyWeatherElements().dayMaxElements.forEach(
+    (max, index) => (max.innerText = res.daily.temperature_2m_max[index])
+  );
+
+  getDailyWeatherElements().dayMinElements.forEach(
+    (min, index) => (min.innerText = res.daily.temperature_2m_min[index])
+  );
+
+  getDailyWeatherElements().dayIconImgs.forEach(
+    (img, index) => {
+      console.log(matchWetherCodeToIcon(res.daily.weather_code[index]));
+      (img.src = matchWetherCodeToIcon(res.daily.weather_code[index]))
+    }
+  );
+
+  console.log(res.daily.weather_code);
 };
 
 const setHourlyWetherInfo = (res) => {
-    // console.log(res)
+  // console.log(res)
 };
 
 const setFallbackForApi = (err) => {};
@@ -84,7 +95,7 @@ const setFallbackForLocation = (err) => {
 const setPsitionCallbck = async (pos) => {
   currentLatitude = pos.coords.latitude;
   currentLlongitude = pos.coords.longitude;
-  hideErrorAccessingLocationElement()
+  hideErrorAccessingLocationElement();
   try {
     currentLocation = await getCurrentCityByLonAndLat(
       currentLatitude,

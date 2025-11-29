@@ -27,6 +27,7 @@ const setWetherInfo = (weatherInfo) => {
   console.log("running setwether info callback");
   setCurrentWetherInfo(weatherInfo[0]);
   setDailyWetherInfo(weatherInfo[1]);
+  setHourlyWetherTitle(weatherInfo[2]);
   setHourlyWetherInfo(weatherInfo[2]);
 };
 
@@ -57,9 +58,7 @@ const setCurrentWetherInfo = (res) => {
 };
 
 const setDailyWetherInfo = (res) => {
-  console.log(res.daily.time);
   getDailyWeatherElements().dayNameElements.forEach((p, index) => {
-    console.log(p, index);
     p.innerText = new Date(res.daily.time[index]).toString().split(" ")[0];
   });
 
@@ -71,18 +70,84 @@ const setDailyWetherInfo = (res) => {
     (min, index) => (min.innerText = res.daily.temperature_2m_min[index])
   );
 
-  getDailyWeatherElements().dayIconImgs.forEach(
-    (img, index) => {
-      console.log(matchWetherCodeToIcon(res.daily.weather_code[index]));
-      (img.src = matchWetherCodeToIcon(res.daily.weather_code[index]))
-    }
-  );
+  getDailyWeatherElements().dayIconImgs.forEach((img, index) => {
+    img.src = matchWetherCodeToIcon(res.daily.weather_code[index]);
+  });
+};
 
-  console.log(res.daily.weather_code);
+const setHourlyWetherTitle = (res) => {
+  const weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  // const currentDay = weekDays[new Date(res.hourly.time[i]).getDay()];
+  const currentDayIndex = new Date(res.hourly.time[0]).getDay();
+  const weekDaysOptions = weekDays
+    .slice(currentDayIndex)
+    .concat(weekDays.slice(0, currentDayIndex));
+  const allDaysElements = getHourlyWeatherElements().allDaysElements;
+  allDaysElements.forEach((option, index) => {
+    if (index === 0) option.selected = true;
+    option.innerText = weekDaysOptions[index];
+    option.value = weekDaysOptions[index];
+  });
 };
 
 const setHourlyWetherInfo = (res) => {
+  const allDaysElements = getHourlyWeatherElements().allDaysElements;
+
+  const weekDayMap = {
+    Sunday: "Sun",
+    Monday: "Mon",
+    Tuesday: "Tue",
+    Wednesday: "Wed",
+    Thursday: "Thu",
+    Friday: "Fri",
+    Saturday: "Sat",
+  };
   // console.log(res)
+
+  let theDay = "";
+
+  allDaysElements.forEach((option, index) => {
+    if (option.selected) {
+      theDay = weekDayMap[option.innerText];
+      // console.log(theDay)
+    }
+  });
+
+  const theDayDailyInfo = [];
+
+  for (let i = 0; i < 168; i++) {
+    if (
+      new Date(res.hourly.time[i]).toString().split(" ")[0] == theDay &&
+      theDayDailyInfo.length < 8
+    ) {
+      theDayDailyInfo.push({
+        time: new Date(res.hourly.time[i]).toLocaleTimeString(),
+        temp: res.hourly.temperature_2m[i],
+        code: res.hourly.weather_code[i],
+      });
+    }
+  }
+
+  getHourlyWeatherElements().hourTimeElements.forEach((element, index)=>{
+    element.innerText = theDayDailyInfo[index].time.replaceAll(':00', "")
+  })
+
+    getHourlyWeatherElements().hourIconImgs.forEach((element, index)=>{
+    element.src = matchWetherCodeToIcon(theDayDailyInfo[index].code)
+  })
+
+    getHourlyWeatherElements().hourTempElements.forEach((element, index)=>{
+    element.innerText = theDayDailyInfo[index].temp
+  })
+
 };
 
 const setFallbackForApi = (err) => {};

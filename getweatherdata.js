@@ -112,7 +112,7 @@ export const getHourlyWeather = async (latitude, longitude) => {
 
   console.log(latitude, longitude, "in getwetherinfo module");
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weather_code&hourly=temperature_2m`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code`;
     const response = await fetch(url);
     if (!response.ok) {
       const error = await response.json();

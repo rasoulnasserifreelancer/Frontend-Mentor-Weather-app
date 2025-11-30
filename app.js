@@ -14,7 +14,7 @@ import {
 let currentLatitude;
 let currentLlongitude;
 let currentLocation;
-let weatherInfo;
+let weatherInfo; // i need to call sethourlyweatherinfo on event listener after initial loading for each day so i need weatherinfo to be global
 
 window.onload = async () => {
   navigator.geolocation.getCurrentPosition(
@@ -22,6 +22,22 @@ window.onload = async () => {
     setFallbackForLocation
   );
 };
+
+const currentDayElement = getHourlyWeatherElements().CurrentDayElement
+
+
+currentDayElement.addEventListener('change', (e) => {
+  for (let option of e.target) {
+    if (option.value === e.target.value) {
+      console.log(option);
+      option.selected = true;
+      setHourlyWetherInfo(weatherInfo[2]);
+    }
+  }
+  console.log(e.target);
+  console.log(e.target.value);
+})
+
 
 const setWetherInfo = (weatherInfo) => {
   console.log("running setwether info callback");

@@ -73,7 +73,7 @@ export const getHourlyWeatherElements = () => {
   const HourlyTitleElement = document.querySelector(
     ".wether_info__hourly_title"
   );
-  // const CurrentDayElement = document.getElementById("day");
+  const CurrentDayElement = document.getElementById("day");
 
     const allDaysElements = document.querySelectorAll(
     "#day option"
@@ -99,6 +99,7 @@ export const getHourlyWeatherElements = () => {
   );
 
   return {
+    CurrentDayElement,
     HourlyElement,
     HourlyTitleElement,
     allDaysElements,

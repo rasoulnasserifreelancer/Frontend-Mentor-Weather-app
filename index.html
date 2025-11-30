@@ -23,6 +23,7 @@
     <script src="./app.js" type="module" defer></script>
     <script src="./getweatherdata.js" type="module" defer></script>
     <script src="./getElements.js" type="module" defer></script>
+    <script src="./searchLocationLogic.js" type="module" defer></script>
     <title>Frontend Mentor | Weather app</title>
   </head>
   <body>
@@ -98,7 +99,10 @@
       </section>
       <section class="wether_info">
         <div class="error-accessing-location">
-          <h2>We Couldn't access your location, please try searching for your location.</h2>
+          <h2>
+            We Couldn't access your location, please try searching for your
+            location.
+          </h2>
         </div>
         <div class="wether_info__current">
           <div class="wether_info_current_poster_city">
@@ -108,12 +112,11 @@
             </div>
             <div class="wether_info_current_poster_city_degree_icon">
               <div
-              class="wether_info_current_poster_city_location_degree_icon_icon"
+                class="wether_info_current_poster_city_location_degree_icon_icon"
               >
-              <img src="./assets/images/icon-sunny.webp" alt="" />
-            </div>
-            <span id="deg">20&deg;</span>
-
+                <img src="./assets/images/icon-sunny.webp" alt="" />
+              </div>
+              <span id="deg">20&deg;</span>
             </div>
           </div>
           <div class="wether_info_current_detail">
@@ -127,15 +130,11 @@
             </div>
             <div class="wether_info_current_detail_wind">
               <p>Wind</p>
-              <span>
-                <span id="wind">14</span> km/h
-              </span> 
+              <span> <span id="wind">14</span> km/h </span>
             </div>
             <div class="wether_info_current_detail_precipitation">
               <p>Precipitation</p>
-              <span>
-                <span id="precipitation">0</span> mm
-              </span>
+              <span> <span id="precipitation">0</span> mm </span>
             </div>
           </div>
         </div>
@@ -148,8 +147,8 @@
                 <img src="./assets/images/icon-fog.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">20&deg;</span>
-                <span class="max">14&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
 
@@ -159,8 +158,8 @@
                 <img src="./assets/images/icon-rain.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">16&deg;</span>
-                <span class="max">22&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
 
@@ -170,8 +169,8 @@
                 <img src="./assets/images/icon-fog.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">19&deg;</span>
-                <span class="max">23&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
 
@@ -181,8 +180,8 @@
                 <img src="./assets/images/icon-storm.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">15&deg;</span>
-                <span class="max">20&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
 
@@ -192,8 +191,8 @@
                 <img src="./assets/images/icon-sunny.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">18&deg;</span>
-                <span class="max">25&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
             <div class="wether_info__daily_forecast_day">
@@ -202,8 +201,8 @@
                 <img src="./assets/images/icon-sunny.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">18&deg;</span>
-                <span class="max">25&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
             <div class="wether_info__daily_forecast_day">
@@ -212,8 +211,8 @@
                 <img src="./assets/images/icon-sunny.webp" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
-                <span class="min">18&deg;</span>
-                <span class="max">25&deg;</span>
+                <span><span class="min">18</span>&deg;</span>
+                <span><span class="max">25</span>&deg;</span>
               </div>
             </div>
           </div>
@@ -240,9 +239,7 @@
                 <p>3 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -254,9 +251,7 @@
                 <p>4 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -268,9 +263,7 @@
                 <p>5 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -282,9 +275,7 @@
                 <p>6 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -296,9 +287,7 @@
                 <p>7 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -310,9 +299,7 @@
                 <p>8 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -324,9 +311,7 @@
                 <p>9 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
 
@@ -338,9 +323,7 @@
                 <p>10 PM</p>
               </div>
               <div class="wether_info__hourly_detail_day-condition_temp">
-                <span>
-                  <span class="temp">20</span> &deg;
-                </span>
+                <span> <span class="temp">20</span>&deg; </span>
               </div>
             </div>
           </div>

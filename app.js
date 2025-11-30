@@ -23,10 +23,9 @@ window.onload = async () => {
   );
 };
 
-const currentDayElement = getHourlyWeatherElements().CurrentDayElement
+const currentDayElement = getHourlyWeatherElements().CurrentDayElement;
 
-
-currentDayElement.addEventListener('change', (e) => {
+currentDayElement.addEventListener("change", (e) => {
   for (let option of e.target) {
     if (option.value === e.target.value) {
       console.log(option);
@@ -36,8 +35,7 @@ currentDayElement.addEventListener('change', (e) => {
   }
   console.log(e.target);
   console.log(e.target.value);
-})
-
+});
 
 const setWetherInfo = (weatherInfo) => {
   console.log("running setwether info callback");
@@ -142,7 +140,8 @@ const setHourlyWetherInfo = (res) => {
   for (let i = 0; i < 168; i++) {
     if (
       new Date(res.hourly.time[i]).toString().split(" ")[0] == theDay &&
-      theDayDailyInfo.length < 8 && new Date(res.hourly.time[i]) > new Date()
+      theDayDailyInfo.length < 8 &&
+      new Date(res.hourly.time[i]) > new Date()
     ) {
       theDayDailyInfo.push({
         time: new Date(res.hourly.time[i]).toLocaleTimeString(),
@@ -152,28 +151,27 @@ const setHourlyWetherInfo = (res) => {
     }
   }
 
-  getHourlyWeatherElements().HourlyDayElements.forEach((element, index) =>{
-    if (index >= theDayDailyInfo.length ) {
+  getHourlyWeatherElements().HourlyDayElements.forEach((element, index) => {
+    if (index >= theDayDailyInfo.length) {
       hideDailyElement(element);
-    }else {
+    } else {
       showDailyElement(element);
     }
-  })
+  });
 
-  console.log(theDayDailyInfo)
+  console.log(theDayDailyInfo);
 
-  getHourlyWeatherElements().hourTimeElements.forEach((element, index)=>{
-    element.innerText = theDayDailyInfo[index]?.time?.replaceAll(':00', "")
-  })
+  getHourlyWeatherElements().hourTimeElements.forEach((element, index) => {
+    element.innerText = theDayDailyInfo[index]?.time?.replaceAll(":00", "");
+  });
 
-    getHourlyWeatherElements().hourIconImgs.forEach((element, index)=>{
-    element.src = matchWetherCodeToIcon(theDayDailyInfo[index]?.code)
-  })
+  getHourlyWeatherElements().hourIconImgs.forEach((element, index) => {
+    element.src = matchWetherCodeToIcon(theDayDailyInfo[index]?.code);
+  });
 
-    getHourlyWeatherElements().hourTempElements.forEach((element, index)=>{
-    element.innerText = theDayDailyInfo[index]?.temp
-  })
-
+  getHourlyWeatherElements().hourTempElements.forEach((element, index) => {
+    element.innerText = theDayDailyInfo[index]?.temp;
+  });
 };
 
 const setFallbackForApi = (err) => {};
@@ -227,11 +225,10 @@ const hideErrorAccessingLocationElement = () => {
     "none";
 };
 
-
 const showDailyElement = (element) => {
-  element.style.display = 'flex'
-}
+  element.style.display = "flex";
+};
 
 const hideDailyElement = (element) => {
-  element.style.display = 'none'
-}
+  element.style.display = "none";
+};

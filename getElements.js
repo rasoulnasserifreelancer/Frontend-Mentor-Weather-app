@@ -75,9 +75,7 @@ export const getHourlyWeatherElements = () => {
   );
   const CurrentDayElement = document.getElementById("day");
 
-    const allDaysElements = document.querySelectorAll(
-    "#day option"
-  );
+  const allDaysElements = document.querySelectorAll("#day option");
   const HourlyDetailContainer = document.querySelector(
     ".wether_info__hourly_detail"
   );
@@ -112,13 +110,15 @@ export const getHourlyWeatherElements = () => {
 };
 
 export const getErrorAccessingLocationElements = () => {
-  const ErrorLocationContainer = document.querySelector('.error-accessing-location');
+  const ErrorLocationContainer = document.querySelector(
+    ".error-accessing-location"
+  );
   const ErrorLocationMessage = ErrorLocationContainer
-    ? ErrorLocationContainer.querySelector('h2')
+    ? ErrorLocationContainer.querySelector("h2")
     : null;
 
   return {
     ErrorLocationContainer,
-    ErrorLocationMessage
+    ErrorLocationMessage,
   };
 };

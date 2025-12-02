@@ -1,18 +1,28 @@
-import {
-  hideErrorAccessingLocationElement,
-  hideWeatherInfoElements,
-  setWetherInfo,
-  showErrorAccessingLocationElement,
-  showWeatherInfoElements,
-} from "./app.js";
+
 import {
   getCurrentLonAndLatByCity,
   getwetherinfo,
   NotFoundError,
 } from "./getApiData.js";
 import { getCurrentWeatherElements, getErrorAccessingLocationElements } from "./getElements.js";
+import { setWetherInfo } from "./setWeatherLogic.js";
+import { hideErrorAccessingLocationElement, hideWeatherInfoElements, showErrorAccessingLocationElement, showWeatherInfoElements } from "./showHideElements.js";
+
+console.log('showWeatherInfoElements type:', typeof showWeatherInfoElements);
+console.log('hideErrorAccessingLocationElement type:', typeof hideErrorAccessingLocationElement);
+try {
+  showWeatherInfoElements();
+} catch (err) {
+  console.error('showWeatherInfoElements threw:', err);
+}
+try {
+  hideErrorAccessingLocationElement();
+} catch (err) {
+  console.error('hideErrorAccessingLocationElement threw:', err);
+}
 
 let weatherInfogotByUserSearch;
+
 const searchLocationBtnElement = document.getElementById("search_btn");
 const searchLocationSearchElement = document.getElementById("search_input");
 const SearchResultContainerElement = document.getElementById(
@@ -101,16 +111,18 @@ SearchResultContainerElement.addEventListener("click", async (e) => {
       const cityLongitude = e.target.dataset.longitude;
       const cityName = e.target.dataset.city;
       const countryName = e.target.dataset.country;
-      const weatherInfo = await Promise.all(
+      const location = {city : cityName, country:countryName};
+      weatherInfogotByUserSearch  = await Promise.all(
         getwetherinfo(cityLatitude, cityLongitude)
       );
       deleteResult();
-      console.log(weatherInfo);
-      setWetherInfo(weatherInfo);
+      setWetherInfo(weatherInfogotByUserSearch, location);
       hideErrorAccessingLocationElement();
       showWeatherInfoElements();
-      SetLocation(cityName, countryName);
-    } catch (error) {}
+      // SetLocation(cityName, countryName);
+    } catch (error) {
+      console.log(error)
+    }
   }
 });
 
@@ -127,12 +139,13 @@ searchLocationBtnElement.addEventListener('click', async (e)=> {
       if (cityIndex !== -1){
         const city = result.cities[cityIndex];
         const country = result.contries[cityIndex];
+        const location = {city, country}
         const latitude = result.latitudes[cityIndex];
         const longitude = result.longitudes[cityIndex];
         weatherInfogotByUserSearch = await Promise.all(getwetherinfo(latitude, longitude));
         deleteResult()
-        setWetherInfo(weatherInfogotByUserSearch);
-        SetLocation(city, country);
+        setWetherInfo(weatherInfogotByUserSearch, location);
+        // SetLocation(city, country);
         showWeatherInfoElements()
         hideErrorAccessingLocationElement();
       }else {

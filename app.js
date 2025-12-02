@@ -13,11 +13,11 @@ import {
   getHourlyWeatherElements,
   getErrorAccessingLocationElements,
 } from "./getElements.js";
-import { getweatherInfoGotByUserLocation, setPsitionCallbck } from "./getLocationLogic.js";
-import { getweatherInfoGotByUserSearch } from "./searchLocationLogic.js";
+import { getweatherInfoGotByUserLocation} from "./getLocationLogic.js";
+import { setWetherInfo } from "./setWeatherLogic.js";
+import { hideErrorAccessingLocationElement, hideWeatherInfoElements, showErrorAccessingLocationElement } from "./showHideElements.js";
 
 
-let currentLocation;
 
 
 window.onload = async () => {
@@ -27,160 +27,24 @@ window.onload = async () => {
   );
 };
 
-console.log("running app.js");
-
-const currentDayElement = getHourlyWeatherElements().CurrentDayElement;
-
-currentDayElement.addEventListener("change", (e) => {
-  let weatherInfo = getweatherInfoGotByUserSearch() || getweatherInfoGotByUserLocation() ;
-  console.log(weatherInfo);
-  for (let option of e.target) {
-    if (option.value === e.target.value) {
-      console.log(option);
-      option.selected = true;
-      setHourlyWetherInfo(weatherInfo[2]);
-    }
+export const setPsitionCallbck = async (pos) => {
+  let currentLatitude = pos.coords.latitude;
+  let currentLlongitude = pos.coords.longitude;
+  let currentLocation;
+  hideErrorAccessingLocationElement();
+  try {
+    currentLocation = await getCurrentCityByLonAndLat(
+      currentLatitude,
+      currentLlongitude
+    );
+    setWetherInfo(getweatherInfoGotByUserLocation(currentLatitude, currentLlongitude), currentLocation);
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
-  console.log(e.target);
-  console.log(e.target.value);
-});
-
-export const setWetherInfo = (weatherInfo) => {
-  console.log("running setwether info callback");
-  setCurrentWetherInfo(weatherInfo[0]);
-  setDailyWetherInfo(weatherInfo[1]);
-  setHourlyWetherTitle(weatherInfo[2]);
-  setHourlyWetherInfo(weatherInfo[2]);
 };
 
-const setCurrentWetherInfo = (res) => {
-  getCurrentWeatherElements().precipitationElement.innerText = `${
-    res?.precipitation ?? "--"
-  }`;
-  getCurrentWeatherElements().windElement.innerText = `${
-    res?.wind_speed_10m ?? "--"
-  }`;
-  getCurrentWeatherElements().humidityElement.innerText = `${
-    res?.relative_humidity_2m ?? "--"
-  }`;
-  getCurrentWeatherElements().apparentTemp.innerText = `${
-    res?.apparent_temperature ?? "--"
-  }`;
-  getCurrentWeatherElements().degElement.innerText = `${
-    res?.temperature_2m ?? "--"
-  }`;
-  getCurrentWeatherElements().poster_weather_city_icon.src =
-    matchWetherCodeToIcon(res?.weather_code);
-  getCurrentWeatherElements().locationElement.innerText = `${
-    currentLocation?.city ?? "--"
-  }, ${currentLocation?.country ?? "--"}`;
-  getCurrentWeatherElements().dateElement.innerText = `${
-    new Date(res?.time)?.toDateString() ?? "--"
-  }`;
-};
 
-const setDailyWetherInfo = (res) => {
-  getDailyWeatherElements().dayNameElements.forEach((p, index) => {
-    p.innerText = new Date(res.daily.time[index]).toString().split(" ")[0];
-  });
-
-  getDailyWeatherElements().dayMaxElements.forEach(
-    (max, index) => (max.innerText = res.daily.temperature_2m_max[index])
-  );
-
-  getDailyWeatherElements().dayMinElements.forEach(
-    (min, index) => (min.innerText = res.daily.temperature_2m_min[index])
-  );
-
-  getDailyWeatherElements().dayIconImgs.forEach((img, index) => {
-    img.src = matchWetherCodeToIcon(res.daily.weather_code[index]);
-  });
-};
-
-const setHourlyWetherTitle = (res) => {
-  const weekDays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  // const currentDay = weekDays[new Date(res.hourly.time[i]).getDay()];
-  const currentDayIndex = new Date(res.hourly.time[0]).getDay();
-  const weekDaysOptions = weekDays
-    .slice(currentDayIndex)
-    .concat(weekDays.slice(0, currentDayIndex));
-  const allDaysElements = getHourlyWeatherElements().allDaysElements;
-  allDaysElements.forEach((option, index) => {
-    if (index === 0) option.selected = true;
-    option.innerText = weekDaysOptions[index];
-    option.value = weekDaysOptions[index];
-  });
-};
-
-const setHourlyWetherInfo = (res) => {
-  const allDaysElements = getHourlyWeatherElements().allDaysElements;
-
-  const weekDayMap = {
-    Sunday: "Sun",
-    Monday: "Mon",
-    Tuesday: "Tue",
-    Wednesday: "Wed",
-    Thursday: "Thu",
-    Friday: "Fri",
-    Saturday: "Sat",
-  };
-  // console.log(res)
-
-  let theDay = "";
-
-  allDaysElements.forEach((option, index) => {
-    if (option.selected) {
-      theDay = weekDayMap[option.innerText];
-      // console.log(theDay)
-    }
-  });
-
-  const theDayDailyInfo = [];
-
-  for (let i = 0; i < 168; i++) {
-    if (
-      new Date(res.hourly.time[i]).toString().split(" ")[0] == theDay &&
-      theDayDailyInfo.length < 8 &&
-      new Date(res.hourly.time[i]) > new Date()
-    ) {
-      theDayDailyInfo.push({
-        time: new Date(res.hourly.time[i]).toLocaleTimeString(),
-        temp: res.hourly.temperature_2m[i],
-        code: res.hourly.weather_code[i],
-      });
-    }
-  }
-
-  getHourlyWeatherElements().HourlyDayElements.forEach((element, index) => {
-    if (index >= theDayDailyInfo.length) {
-      hideDailyElement(element);
-    } else {
-      showDailyElement(element);
-    }
-  });
-
-  console.log(theDayDailyInfo);
-
-  getHourlyWeatherElements().hourTimeElements.forEach((element, index) => {
-    element.innerText = theDayDailyInfo[index]?.time?.replaceAll(":00", "");
-  });
-
-  getHourlyWeatherElements().hourIconImgs.forEach((element, index) => {
-    element.src = matchWetherCodeToIcon(theDayDailyInfo[index]?.code);
-  });
-
-  getHourlyWeatherElements().hourTempElements.forEach((element, index) => {
-    element.innerText = theDayDailyInfo[index]?.temp;
-  });
-};
 
 const setFallbackForApi = (err) => {};
 
@@ -213,33 +77,3 @@ const setFallbackForLocation = (err) => {
 
 const setLoadingState = () => {};
 
-export const hideWeatherInfoElements = () => {
-  getCurrentWeatherElements().CurrentWeatherElement.style.display = "none";
-  getDailyWeatherElements().DailyElement.style.display = "none";
-  getHourlyWeatherElements().HourlyElement.style.display = "none";
-};
-
-export const showWeatherInfoElements = () => {
-  getCurrentWeatherElements().CurrentWeatherElement.style.display = "flex";
-  getDailyWeatherElements().DailyElement.style.display = "flex";
-  getHourlyWeatherElements().HourlyElement.style.display = "block";
-};
-
-export const showErrorAccessingLocationElement = () => {
-  getErrorAccessingLocationElements().ErrorLocationContainer.style.display =
-    "flex";
-};
-
-export const hideErrorAccessingLocationElement = () => {
-  getErrorAccessingLocationElements().ErrorLocationContainer.style.display =
-    "none";
-  console.log("running hide Error Location accessing");
-};
-
-const showDailyElement = (element) => {
-  element.style.display = "flex";
-};
-
-const hideDailyElement = (element) => {
-  element.style.display = "none";
-};

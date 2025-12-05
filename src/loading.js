@@ -1,16 +1,20 @@
 // import { getCurrentWeather } from "./getApiData";
-import { getCurrentWeatherElements } from "./getElements.js";
+import { getCurrentWeatherElements, getDailyWeatherElements } from "./getElements.js";
+
 
 export const setLoadingState = () => {
     addLoadingStateToCurrentWeatherPosterElement();
     addLoadingStateTocurrentWeatherDetailAPIInformationElement();
+    addLoadingStateToDayElements();
 };
 
 
 export const removeLoadingState = () => {
     removeLoadingStateOfCurrentWeatherPosterElement();
     removeLoadingStateOfcurrentWeatherDetailAPIInformationElement();
+    removeLoadingStateOfDayElements();
 }
+
 
 const addLoadingStateToCurrentWeatherPosterElement = () => {
   const currentWeatherPosterElement =
@@ -20,6 +24,7 @@ const addLoadingStateToCurrentWeatherPosterElement = () => {
 
   currentWeatherPosterElement.classList.add("loading");
 };
+
 
 const removeLoadingStateOfCurrentWeatherPosterElement = () => {
   const currentWeatherPosterElement =
@@ -40,18 +45,18 @@ const removeLoadingStateOfCurrentWeatherPosterElement = () => {
   currentWeatherPosterElement.classList.remove("loading");
 };
 
+
 const addLoadingStateTocurrentWeatherDetailAPIInformationElement = () => {
   const currentWeatherDetailAPIInformationElement =
     getCurrentWeatherElements().currentWeatherDetailAPIInformationElement;
-  console.log(currentWeatherDetailAPIInformationElement,"elements inside of addLoadingStateTocurrentWeatherDetailAPIInformationElement")
     currentWeatherDetailAPIInformationElement.forEach(
     (element) =>{
-            console.log(element, "each span element inside addLoadingStateTocurrentWeatherDetailAPIInformationElement");
             (element.innerHTML = "-")
 
     }
   );
 };
+
 
 const removeLoadingStateOfcurrentWeatherDetailAPIInformationElement = () => {
   const currentWeatherDetailAPIInformationElement =
@@ -90,6 +95,23 @@ const removeLoadingStateOfcurrentWeatherDetailAPIInformationElement = () => {
   });
 };
 
-const addLoadingStateToDayElements = () => {
 
+const addLoadingStateToDayElements = () => {
+    const dayElements = getDailyWeatherElements().DayElements;
+    dayElements.forEach((day)=> day.innerHTML = '');   
+}
+
+
+const removeLoadingStateOfDayElements = () => {
+    const dayElements = getDailyWeatherElements().DayElements;
+    dayElements.forEach((day)=> day.innerHTML = 
+`              <p></p>
+              <div class="wether_info__daily_forecast_day_icon">
+                <img src="" alt="" />
+              </div>
+              <div class="wether_info__daily_forecast_day_minmax">
+                <span><span class="min"></span>&deg;</span>
+                <span><span class="max"></span>&deg;</span>
+              </div>`
+);   
 }

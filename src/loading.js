@@ -2,12 +2,14 @@
 import { getCurrentWeatherElements } from "./getElements.js";
 
 export const setLoadingState = () => {
-    addLoadingStateToCurrentWeatherPosterElement()
+    addLoadingStateToCurrentWeatherPosterElement();
+    addLoadingStateTocurrentWeatherDetailAPIInformationElement();
 };
 
 
 export const removeLoadingState = () => {
-    removeLoadingStateOfCurrentWeatherPosterElement()
+    removeLoadingStateOfCurrentWeatherPosterElement();
+    removeLoadingStateOfcurrentWeatherDetailAPIInformationElement();
 }
 
 const addLoadingStateToCurrentWeatherPosterElement = () => {
@@ -38,3 +40,56 @@ const removeLoadingStateOfCurrentWeatherPosterElement = () => {
   currentWeatherPosterElement.classList.remove("loading");
 };
 
+const addLoadingStateTocurrentWeatherDetailAPIInformationElement = () => {
+  const currentWeatherDetailAPIInformationElement =
+    getCurrentWeatherElements().currentWeatherDetailAPIInformationElement;
+  console.log(currentWeatherDetailAPIInformationElement,"elements inside of addLoadingStateTocurrentWeatherDetailAPIInformationElement")
+    currentWeatherDetailAPIInformationElement.forEach(
+    (element) =>{
+            console.log(element, "each span element inside addLoadingStateTocurrentWeatherDetailAPIInformationElement");
+            (element.innerHTML = "-")
+
+    }
+  );
+};
+
+const removeLoadingStateOfcurrentWeatherDetailAPIInformationElement = () => {
+  const currentWeatherDetailAPIInformationElement =
+    getCurrentWeatherElements().currentWeatherDetailAPIInformationElement;
+  currentWeatherDetailAPIInformationElement.forEach((element, index) => {
+    switch (index) {
+      case 0:
+        element.innerHTML = 
+       `<span>
+            <span id="apparent-temp"></span>&deg;
+          </span>`
+        break;
+      case 1:
+        element.innerHTML = 
+        `  <span>
+            <span id="humidity"></span>%
+          </span>`
+        break;
+      case 2:
+        element.innerHTML = (
+         ` <span>
+            <span id="wind"></span> km/h
+          </span>`
+        );
+        break;
+      case 3:
+        element.innerHTML = (
+          `<span>
+            <span id="precipitation"></span> mm
+          </span>`
+        );
+        break;
+      default:
+        break;
+    }
+  });
+};
+
+const addLoadingStateToDayElements = () => {
+
+}

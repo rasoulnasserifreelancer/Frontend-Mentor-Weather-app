@@ -150,5 +150,48 @@ export const getSearchLocationElements = () => {
   return {searchContainerResult}
 }
 
+export const getDropdownElements = () => {
+  const dropdown = document.querySelector("#dropdown");
+  const iconDropdown = document.querySelector("#icon-dropdown");
+  const dropdownUnitList = document.querySelector("#dropdown-unit");
+
+  // System switch
+  const systemSwitch = document.querySelector("#system");
+
+  // Temperature options
+  const temperatureCel = document.querySelector("#temperature-cel");
+  const temperatureFar = document.querySelector("#temperature-far");
+
+  // Wind speed options
+  const windspeedKmh = document.querySelector("#windspeed-kmh");
+  const windspeedMph = document.querySelector("#windspeed-mph");
+
+  // Precipitation options
+  const precipitationMm = document.querySelector("#precipitation-mm");
+  const precipitationIn = document.querySelector("#precipitation-in");
+
+  // Titles for each unit section
+  const unitTitles = document.querySelectorAll(".unit_title");
+
+  // All unit list items
+  const unitItems = document.querySelectorAll(".unit");
+
+  return {
+    dropdown,
+    iconDropdown,
+    dropdownUnitList,
+    systemSwitch,
+    temperatureCel,
+    temperatureFar,
+    windspeedKmh,
+    windspeedMph,
+    precipitationMm,
+    precipitationIn,
+    unitTitles,
+    unitItems,
+  };
+};
+
+
 
 export const mainContent = document.getElementById('main-content');

@@ -176,6 +176,7 @@ export const getDropdownElements = () => {
   // All unit list items
   const unitItems = document.querySelectorAll(".unit");
 
+  const checkMarkIcon = document.querySelector(".unit img");
   return {
     dropdown,
     iconDropdown,
@@ -189,6 +190,7 @@ export const getDropdownElements = () => {
     precipitationIn,
     unitTitles,
     unitItems,
+    checkMarkIcon
   };
 };
 

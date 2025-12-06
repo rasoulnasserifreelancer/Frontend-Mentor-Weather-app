@@ -87,6 +87,12 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 3%;
+  transition: transform 300ms linear;
+}
+
+.unit div:hover {
+ cursor: pointer;
+ transform: scale(1.1);
 }
 
 .unit img {

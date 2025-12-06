@@ -20,9 +20,9 @@ export const getCurrentWeatherElements = () => {
   const apparentTemp = document.getElementById("apparent-temp");
   const humidityElement = document.getElementById("humidity");
   const windElement = document.getElementById("wind");
-  console.log(windElement);
   const windElementUnit = windElement?.nextSibling;
   const precipitationElement = document.getElementById("precipitation");
+  const precipitationElementUnit = precipitationElement?.nextSibling;
 
   return {
     CurrentWeatherElement,
@@ -38,6 +38,7 @@ export const getCurrentWeatherElements = () => {
     windElement,
     windElementUnit,
     precipitationElement,
+    precipitationElementUnit
   };
 };
 

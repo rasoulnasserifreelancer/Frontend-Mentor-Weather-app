@@ -1,4 +1,4 @@
-import { celsiusToFahrenheit, fahrenheitToCelsius, kmhToMph, mphToKmh } from "./changeUnitLogic.js";
+import { celsiusToFahrenheit, fahrenheitToCelsius, inchToMm, kmhToMph, mmToInch, mphToKmh } from "./changeUnitLogic.js";
 import {
   getCurrentWeatherElements,
   getDailyWeatherElements,
@@ -74,6 +74,23 @@ const changeWindSpeedToMphForAllElements = () => {
 }
 
 
+const changeprecipitationFromMmToInch = () => {
+    const precipitation = getCurrentWeatherElements().precipitationElement;
+    const precipitationElementUnit = getCurrentWeatherElements().precipitationElementUnit;
+    precipitation.innerText = mmToInch(precipitation.innerText);
+    precipitationElementUnit.nodeValue = ' in'
+}
+
+
+const changeprecipitationFromInchToMm = () => {
+    const precipitation = getCurrentWeatherElements().precipitationElement;
+        const precipitationElementUnit = getCurrentWeatherElements().precipitationElementUnit;
+
+    precipitation.innerText = inchToMm(precipitation.innerText);
+        precipitationElementUnit.nodeValue = ' mm'
+
+}
+
 const addSelectedIconAndClass = (element, i) => {
   element.append(checkMarkIcons[i]);
   element.classList.add("selected");
@@ -112,6 +129,22 @@ const dropdownCallbacks = (e) => {
     changeWindSpeedToMphForAllElements();
     addSelectedIconAndClass(windspeedMph, 1);
     windspeedKmh.classList.remove("selected");
+  }else if (
+    !precipitationMm.classList.contains("selected") &&
+      (e.target === precipitationMm ||
+    e.target.parentElement === precipitationMm)
+  ) {
+    changeprecipitationFromInchToMm();
+    addSelectedIconAndClass(precipitationMm, 2);
+    precipitationIn.classList.remove("selected");
+  }else if (
+    !precipitationIn.classList.contains("selected") &&
+      (e.target === precipitationIn ||
+    e.target.parentElement === precipitationIn)
+  ) {
+    changeprecipitationFromMmToInch();
+    addSelectedIconAndClass(precipitationIn, 2);
+    precipitationMm.classList.remove("selected");
   }
 };
 

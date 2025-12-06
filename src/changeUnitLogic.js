@@ -15,6 +15,7 @@ export const mphToKmh = (mph) => {
 };
 
 export const mmToInch = (mm) => {
+    if (mm == 0) return 0;
   return (mm / 25.4).toFixed(1);
 };
 

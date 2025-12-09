@@ -1,9 +1,51 @@
-@media (max-width : 768px) {
-    #main-content {
-        width: 90%;
-    }
- 
-    .wether_info,#hero-section  {
-        width: 100%;
-    }
+@media (max-width: 1200px) {
+  #main-content {
+    width: 90%;
+  }
+
+  .wether_info,
+  #hero-section {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  #main-content {
+    width: 95%;
+  }
+
+  .wether_info,
+  #hero-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  #search-container {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  #search-container-search-btn {
+    width: 90%;
+  }
+
+  #search_btn {
+    width: 90%;
+    font-size: 1rem;
+  }
+
+  .wether_info {
+    width: 90%;
+    height: 75%;
+    gap: 5%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  .wether_info__hourly {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
 }

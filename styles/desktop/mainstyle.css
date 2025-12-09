@@ -53,7 +53,7 @@
 
 
 #search_input {
-  padding-left: 2.2rem; 
+  padding-left: 10%; 
   background-color: var(--Neutral600);
   border-radius: 6px;
   outline: 0cm;
@@ -315,7 +315,7 @@
   align-items: center;
   width: 95%;
   height: 10%;
-  margin: 0 auto;
+  margin: 2% auto;
 }
 
 .wether_info__hourly_detail {

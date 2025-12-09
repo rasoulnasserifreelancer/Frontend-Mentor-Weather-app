@@ -2,7 +2,7 @@
 header {
   display: flex;
   justify-content: space-between;
-  margin: 1% auto;
+  margin: 2.5% auto;
   width: 65%;
   height: 5%;
   padding: 0 2%;
@@ -17,6 +17,8 @@ header {
   font-size: 1rem;
   transition: transform 300ms linear;
 }
+
+
 
 
 #system:hover {

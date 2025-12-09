@@ -1,3 +1,9 @@
-@media (max-width < 768px) {
-
+@media (max-width : 768px) {
+    #main-content {
+        width: 90%;
+    }
+ 
+    .wether_info,#hero-section  {
+        width: 100%;
+    }
 }

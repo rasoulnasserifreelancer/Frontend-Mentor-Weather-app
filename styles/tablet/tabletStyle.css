@@ -8,7 +8,7 @@
     width: 90%;
   }
 }
-
+/* 
 @media (max-width: 768px) {
   #main-content {
     width: 95%;
@@ -48,4 +48,4 @@
     grid-column: 1/2;
     grid-row: 3/4;
   }
-}
+} */

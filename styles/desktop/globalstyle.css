@@ -34,7 +34,33 @@ body {
   width: 100vw;
 }
 
-
 h1 {
   font-size: 1.8rem;
 }
+
+
+#search_btn:hover {
+  cursor: pointer;
+  background-color: var(--blue700);
+}
+
+
+
+
+#icon-dropdown:hover {
+  cursor: pointer;
+  background-color: var(--Neutral600);
+}
+
+#day:hover {
+  cursor: pointer;
+  padding: 0.5rem;
+  background-color: var(--Neutral700);
+}
+
+#search_btn:focus, #icon-dropdown:focus, #day:focus {
+  border: 1px solid var(--Neutral0);
+}
+
+
+

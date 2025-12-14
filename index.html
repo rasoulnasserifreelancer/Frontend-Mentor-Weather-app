@@ -17,12 +17,13 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles/desktop/globalstyle.css" />
-    <link rel="stylesheet" href="./styles/desktop/headerstyles.css" />
-    <link rel="stylesheet" href="./styles/desktop/mainstyle.css" />
-    <link rel="stylesheet" href="./styles/desktop/errorStyle.css" />
-    <link rel="stylesheet" href="./styles/tablet/tabletStyle.css" />
-    <link rel="stylesheet" href="./styles/mobile/mobileStyle.css" />
+    <!-- <link rel="stylesheet" href="./styles/desktop/globalstyle.css" /> -->
+    <!-- <link rel="stylesheet" href="./styles/desktop/headerstyles.css" /> -->
+    <!-- <link rel="stylesheet" href="./styles/desktop/mainstyle.css" /> -->
+    <!-- <link rel="stylesheet" href="./styles/desktop/errorStyle.css" /> -->
+    <!-- <link rel="stylesheet" href="./styles/tablet/tabletStyle.css" /> -->
+    <!-- <link rel="stylesheet" href="./styles/mobile/mobileStyle.css" /> -->
+    <link rel="stylesheet" href="./styles/styles.css" />
     <script src="./src/app.js" type="module" defer></script>
     <script src="./src/getApiData.js" type="module" defer></script>
     <script src="./src/getElements.js" type="module" defer></script>
@@ -39,7 +40,8 @@
     <title>Frontend Mentor | Weather app</title>
   </head>
   <body>
-    <div class="error-element" id="backdrop">
+    <a href="#main-content" class="visually-hidden">skip to main content</a>
+    <div class="error-element" id="backdrop" style="display: none;">
       <div
         class="error-element-inside"
         aria-modal="true"
@@ -52,194 +54,202 @@
         </div>
       </div>
     </div>
-    <header>
-      <div id="logo">
-        <a href="/">
-          <img src="./assets/images/logo.svg" alt="Weather app logo" />
-        </a>
-      </div>
-      <div id="dropdown">
-        <div id="icon-dropdown">
-          <img src="./assets/images/icon-units.svg" alt="units" />
-          <span>Units</span>
-          <img src="./assets/images/icon-dropdown.svg" alt="dropdown" />
+    <header class="wrapper">
+      <div class="header-content">        
+        <div id="logo">
+          <a href="/">
+            <img src="./assets/images/logo.svg" alt="Weather app logo" />
+          </a>
         </div>
-        <ul id="dropdown-unit">
-          <li class="unit">
-            <p id="system" data-unit="metric">Switch to Imperial</p>
-          </li>
-          <li class="unit">
-            <p class="unit_title">Temperature</p>
-            <div id="temperature-cel" class="selected">
-              <span>Celsius (°C)</span>
-              <img src="./assets/images/icon-checkmark.svg" alt="checkmark" />
-            </div>
-            <div id="temperature-far">
-              <span>Fahrenheit (°F)</span>
-            </div>
-          </li>
-          <li class="unit">
-            <p class="unit_title">Wind Speed</p>
-            <div id="windspeed-kmh" class="selected">
-              <span>km/h</span>
-              <img src="./assets/images/icon-checkmark.svg" alt="checkmark" />
-            </div>
-            <div id="windspeed-mph">
-              <span>mph</span>
-            </div>
-          </li>
-          <li class="unit">
-            <p class="unit_title">Precipitation</p>
-            <div id="precipitation-mm" class="selected">
-              <span>Millimeters (mm)</span>
-              <img src="./assets/images/icon-checkmark.svg" alt="checkmark" />
-            </div>
-            <div id="precipitation-in">
-              <span>Inches (in)</span>
-            </div>
-          </li>
-        </ul>
+        <div id="dropdown">
+          <div id="icon-dropdown">
+            <img src="./assets/images/icon-units.svg" alt="units" />
+            <span>Units</span>
+            <img src="./assets/images/icon-dropdown.svg" alt="dropdown" />
+          </div>
+          <ul id="dropdown-unit" style="display: none;">
+            <li class="unit">
+              <p id="system" data-unit="metric">Switch to Imperial</p>
+            </li>
+            <li class="unit">
+              <p class="unit_title">Temperature</p>
+              <div id="temperature-cel" class="selected">
+                <span>Celsius (°C)</span>
+                <img src="./assets/images/icon-checkmark.svg" alt="checkmark" />
+              </div>
+              <div id="temperature-far">
+                <span>Fahrenheit (°F)</span>
+              </div>
+            </li>
+            <li class="unit">
+              <p class="unit_title">Wind Speed</p>
+              <div id="windspeed-kmh" class="selected">
+                <span>km/h</span>
+                <img src="./assets/images/icon-checkmark.svg" alt="checkmark" />
+              </div>
+              <div id="windspeed-mph">
+                <span>mph</span>
+              </div>
+            </li>
+            <li class="unit">
+              <p class="unit_title">Precipitation</p>
+              <div id="precipitation-mm" class="selected">
+                <span>Millimeters (mm)</span>
+                <img src="./assets/images/icon-checkmark.svg" alt="checkmark" />
+              </div>
+              <div id="precipitation-in">
+                <span>Inches (in)</span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
 
     <main id="main-content">
-      <section id="hero-section" class="hero-content">
-        <h1>How's the sky looking today?</h1>
-        <div id="search-container">
-          <div id="search-container-search-btn">
-            <div id="search-bar">
-              <input
-                type="text"
-                id="search_input"
-                name="search"
-                placeholder="Search for a place"
-              />
-              <img
-                src="./assets/images/icon-search.svg"
-                alt="search for city"
-                id="search-bar-img"
-              />
+      <section id="hero-section" class="hero-section wrapper">
+        <div class="hero-content">
+          <h1 class="hero-title">How's the sky looking today?</h1>
+          <div id="search-container" class="hero-section-search-container">
+            <div id="search-container-search-btn" class="hero-section-search-container-searchbar-result">
+              <div id="search-bar" class="search-bar">
+                <input
+                  type="text"
+                  id="search_input"
+                  class="search_input"
+                  name="search"
+                  placeholder="Search for a place"
+                />
+                <img
+                  src="./assets/images/icon-search.svg"
+                  alt="search for city"
+                  id="search-bar-img"
+                  class="search-bar-img"
+                />
+              </div>
+              <div id="search-container-result" class="search-result"></div>
             </div>
-            <div id="search-container-result"></div>
+            <button id="search_btn" class="search_btn">Search</button>
           </div>
-          <button id="search_btn">Search</button>
         </div>
       </section>
-      <section class="wether_info">
-        <div class="wether_info__current">
-          <div class="wether_info_current_poster_city">
-            <div class="wether_info_current_poster_city_location_date">
-              <span id="location">Berlin, Germany</span>
-              <span id="date">Tuesday, Aug, 2025</span>
-            </div>
-            <div class="wether_info_current_poster_city_degree_icon">
-              <div
-                class="wether_info_current_poster_city_location_degree_icon_icon"
-              >
-                <img src="../assets/images/icon-sunny.webp" alt="" />
+      <section class="wether_info wrapper">
+        <div class="weather__info__container">
+          <div class="wether_info__current">
+            <div class="wether_info_current_poster_city">
+              <div class="wether_info_current_poster_city_location_date">
+                <span id="location" class="location">Berlin, Germany</span>
+                <span id="date" class="date">Tuesday, Aug, 2025</span>
               </div>
-              <span><span id="deg">20</span><sup>°</sup></span>
+              <div class="wether_info_current_poster_city_degree_icon">
+                <div
+                  class="wether_info_current_poster_city_location_degree_icon_icon"
+                >
+                  <img src="../assets/images/icon-sunny.webp" alt="" />
+                </div>
+                <span><span class="deg" id="deg">20</span><sup class="deg">°</sup></span>
+              </div>
+            </div>
+            <div class="wether_info_current_detail">
+              <div class="wether_info_current_detail_temp">
+                <p>Feels like</p>
+                <span><span id="apparent-temp">18</span>&deg;</span>
+              </div>
+              <div class="wether_info_current_detail_humidity">
+                <p>Humidity</p>
+                <span><span id="humidity">46</span>%</span>
+              </div>
+              <div class="wether_info_current_detail_wind">
+                <p>Wind</p>
+                <span> <span id="wind">14</span> km/h </span>
+              </div>
+              <div class="wether_info_current_detail_precipitation">
+                <p>Precipitation</p>
+                <span> <span id="precipitation">0</span> mm </span>
+              </div>
             </div>
           </div>
-          <div class="wether_info_current_detail">
-            <div class="wether_info_current_detail_temp">
-              <p>Feels like</p>
-              <span><span id="apparent-temp">18</span>&deg;</span>
-            </div>
-            <div class="wether_info_current_detail_humidity">
-              <p>Humidity</p>
-              <span><span id="humidity">46</span>%</span>
-            </div>
-            <div class="wether_info_current_detail_wind">
-              <p>Wind</p>
-              <span> <span id="wind">14</span> km/h </span>
-            </div>
-            <div class="wether_info_current_detail_precipitation">
-              <p>Precipitation</p>
-              <span> <span id="precipitation">0</span> mm </span>
+          <div class="wether_info__daily">
+            <h2>Daily forecast</h2>
+            <div class="wether_info__daily_forecast">
+              <div class="wether_info__daily_forecast_day">
+                <p>Tue</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="./assets/images/icon-fog.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
+  
+              <div class="wether_info__daily_forecast_day">
+                <p>Wed</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="./assets/images/icon-rain.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
+  
+              <div class="wether_info__daily_forecast_day">
+                <p>Thu</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="./assets/images/icon-fog.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
+  
+              <div class="wether_info__daily_forecast_day">
+                <p>Fri</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="./assets/images/icon-storm.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
+  
+              <div class="wether_info__daily_forecast_day">
+                <p>Sat</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="../assets/images/icon-sunny.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
+              <div class="wether_info__daily_forecast_day">
+                <p>Sun</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="../assets/images/icon-sunny.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
+              <div class="wether_info__daily_forecast_day">
+                <p>Mon</p>
+                <div class="wether_info__daily_forecast_day_icon">
+                  <img src="../assets/images/icon-sunny.webp" alt="" />
+                </div>
+                <div class="wether_info__daily_forecast_day_minmax">
+                  <span><span class="min">18</span>&deg;</span>
+                  <span><span class="max">25</span>&deg;</span>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="wether_info__hourly">
         </div>
-        <div class="wether_info__daily">
-          <h2>Daily forecast</h2>
-          <div class="wether_info__daily_forecast">
-            <div class="wether_info__daily_forecast_day">
-              <p>Tue</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="./assets/images/icon-fog.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-
-            <div class="wether_info__daily_forecast_day">
-              <p>Wed</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="./assets/images/icon-rain.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-
-            <div class="wether_info__daily_forecast_day">
-              <p>Thu</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="./assets/images/icon-fog.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-
-            <div class="wether_info__daily_forecast_day">
-              <p>Fri</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="./assets/images/icon-storm.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-
-            <div class="wether_info__daily_forecast_day">
-              <p>Sat</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="../assets/images/icon-sunny.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-            <div class="wether_info__daily_forecast_day">
-              <p>Sun</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="../assets/images/icon-sunny.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-            <div class="wether_info__daily_forecast_day">
-              <p>Mon</p>
-              <div class="wether_info__daily_forecast_day_icon">
-                <img src="../assets/images/icon-sunny.webp" alt="" />
-              </div>
-              <div class="wether_info__daily_forecast_day_minmax">
-                <span><span class="min">18</span>&deg;</span>
-                <span><span class="max">25</span>&deg;</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="wether_info__hourly">
           <div class="wether_info__hourly_title">
             <h2>Hourly forecast</h2>
             <select aria-label="State" name="day" id="day">

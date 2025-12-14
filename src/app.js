@@ -47,9 +47,9 @@ ErrorBtn.addEventListener('click', hideErrorElement)
 const setFallbackForApi = (err) => {};
 
 const setFallbackForLocation = (err) => {
-  hideWeatherInfoElements();
+  // hideWeatherInfoElements();
   removeLoadingState();
-  showErrorElement("We Couldn't access your location, please try searching for your location", "https://img.icons8.com/neon/96/delete-sign.png");
+  // showErrorElement("We Couldn't access your location, please try searching for your location", "https://img.icons8.com/neon/96/delete-sign.png");
 };
 
 

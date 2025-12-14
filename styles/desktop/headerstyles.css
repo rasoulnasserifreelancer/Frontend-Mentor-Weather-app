@@ -1,5 +1,5 @@
 
-header {
+/* header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,7 +7,7 @@ header {
   width: 80%;
   height: 5%;
   padding: 0 2%;
-}
+} */
 
 #dropdown {
   display: flex;
@@ -26,18 +26,18 @@ header {
  cursor: pointer;
  transform: scale(1.1);
 }
-
+/* 
 #logo {
   width: 120px;
   display: flex;
   align-items: center;
-}
+} */
 
 .unit_title {
   font-size: 0.8rem;
   color: var(--Neutral300);
   opacity: 0.8;
-  /* margin-bottom: 2%; */
+  margin-bottom: 2%;
 }
 
 #icon-dropdown {
@@ -67,7 +67,7 @@ header {
   height: 0;
   z-index: 0;
   transition: all 300ms linear;
-  top: 100px;
+  left: -10000px;
   visibility: collapse;
 }
 

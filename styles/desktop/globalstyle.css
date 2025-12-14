@@ -1,4 +1,4 @@
-html {
+/* html {
   --Neutral900: hsl(243, 96%, 9%);
   --Neutral800: hsl(243, 27%, 20%);
   --Neutral700: hsl(243, 23%, 24%);
@@ -64,3 +64,6 @@ h1 {
 
 
 
+* {
+  outline: 1px solid red !important;
+} */

@@ -74,13 +74,13 @@
 
   @keyframes border-animation {
     0% {
-      border-top-color: rgb(174, 248, 174);
+      border-top-color: rgb(63, 181, 63);
     }
     25% {
       border-right-color: green;
     }
     50% {
-      border-bottom-color: rgb(174, 248, 174);
+      border-bottom-color: rgb(63, 181, 63);
     }
     75% {
       border-left-color: green;
@@ -89,6 +89,17 @@
       border-color: green;
     }
   }
+
+  @keyframes rotateScale {
+  from {
+    transform: rotateZ(0deg) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: rotateZ(360deg) scale(1.2);
+    opacity: 0.8;
+  }
+}
 
   input,
   button {
@@ -155,12 +166,12 @@
       display: flex;
       align-items: center;
       padding: 1rem;
-      border: 6px solid rgba(100, 100, 100, 1);
+      border: 6px solid rgb(228, 223, 223);
       border-radius: 8px;
       gap: 0.5rem;
       box-shadow: 10px 10px 40px black;
       background-color: rgba(100, 100, 100, 1);
-      animation: border-animation 1s infinite;
+      animation: border-animation 1.5s infinite;
     }
     .dialog-lable {
     }
@@ -274,7 +285,7 @@
 
       .system {
         transition: transform 300ms linear;
-     
+
         &:hover {
           cursor: pointer;
           transform: scale(1.1);
@@ -397,10 +408,14 @@
     .wether_info__current {
       grid-column: 1;
       grid-row: 1;
+      width: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: 1fr;
     }
     .wether_info_current_poster_city {
+            width: 100%;
+      height: 100%;
       background-image: url("../assets/images/bg-today-small.svg");
       @media (width >= calc(700/16 * 1rem)) {
         background-image: url("../assets/images/bg-today-large.svg");
@@ -414,6 +429,22 @@
       background-position: center bottom;
       background-size: cover;
       border-radius: 20px;
+
+      &.loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.6rem;
+        justify-content: center;
+        background-image: none;
+        background-color: var(--Neutral600);
+        & img {
+          animation-name: rotateScale;
+          animation-duration: 2s;
+          animation-iteration-count: infinite;
+        }
+      }
     }
     .wether_info_current_poster_city_location_date {
       display: flex;
@@ -449,6 +480,8 @@
       grid-template-columns: 1fr 1fr;
       margin-top: 20px;
       gap: 16px;
+            width: 100%;
+      height: 100%;
 
       @media (width >= calc(700/16 * 1rem)) {
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -475,6 +508,8 @@
     }
     .wether_info__daily {
       grid-row: 2;
+            width: 100%;
+      height: 100%;
       @media (width >= calc(1000/16 * 1rem)) {
         grid-row: 2;
         grid-column: 1;
@@ -484,6 +519,8 @@
         margin-bottom: 20px;
       }
       .wether_info__daily_forecast {
+              width: 100%;
+      height: 100%;
         display: grid;
         gap: 16px;
         grid-template-columns: repeat(3, 1fr);
@@ -492,6 +529,8 @@
         }
       }
       .wether_info__daily_forecast_day {
+              width: 100%;
+      height: 100%;
         /* width: 100%; */
         background-color: var(--color-panel-dark);
         border: 1px solid var(--color-panel-light);
@@ -523,6 +562,8 @@
     }
     .wether_info__hourly {
       grid-row: 3;
+            width: 100%;
+      height: 100%;
       @media (width >= calc(1000/16 * 1rem)) {
         grid-column: 2/3;
         grid-row: 1/3;
@@ -530,6 +571,8 @@
 
       .wether_info__hourly_content {
         display: flex;
+              width: 100%;
+      height: 100%;
         flex-direction: column;
         background-color: var(--color-panel-dark);
         border-radius: 20px;
@@ -556,11 +599,15 @@
 
       .wether_info__hourly_detail {
         display: grid;
+              width: 100%;
+      height: 100%;
         grid-template-columns: 1fr;
         gap: 16px;
         overflow: visible;
       }
       .wether_info__hourly_detail_day {
+              width: 100%;
+      height: 100%;
         background: var(--color-panel-dark-hover);
         border: 1px solid var(--color-panel-light);
         border-radius: 8px;

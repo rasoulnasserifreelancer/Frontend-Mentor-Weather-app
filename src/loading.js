@@ -52,6 +52,7 @@ const addLoadingStateTocurrentWeatherDetailAPIInformationElement = () => {
     getCurrentWeatherElements().currentWeatherDetailAPIInformationElement;
   currentWeatherDetailAPIInformationElement.forEach((element) => {
     element.innerHTML = "-";
+    element.classList.add("loading");
   });
 };
 
@@ -59,6 +60,8 @@ const removeLoadingStateOfcurrentWeatherDetailAPIInformationElement = () => {
   const currentWeatherDetailAPIInformationElement =
     getCurrentWeatherElements().currentWeatherDetailAPIInformationElement;
   currentWeatherDetailAPIInformationElement.forEach((element, index) => {
+    element.classList.remove("loading");
+
     switch (index) {
       case 0:
         element.innerHTML = `<span>
@@ -72,7 +75,7 @@ const removeLoadingStateOfcurrentWeatherDetailAPIInformationElement = () => {
         break;
       case 2:
         element.innerHTML = ` <span>
-            <span id="wind"></span> km/h
+            <span id="wind"></span> kmh
           </span>`;
         break;
       case 3:
@@ -88,22 +91,25 @@ const removeLoadingStateOfcurrentWeatherDetailAPIInformationElement = () => {
 
 const addLoadingStateToDayElements = () => {
   const dayElements = getDailyWeatherElements().DayElements;
-  dayElements.forEach((day) => (day.innerHTML = ""));
+  dayElements.forEach((day) => {
+    day.classList.add("loading");
+    day.innerHTML = "";
+  });
 };
 
 const removeLoadingStateOfDayElements = () => {
   const dayElements = getDailyWeatherElements().DayElements;
-  dayElements.forEach(
-    (day) =>
-      (day.innerHTML = `              <p></p>
+  dayElements.forEach((day) => {
+    day.classList.remove("loading");
+    day.innerHTML = `              <p></p>
               <div class="wether_info__daily_forecast_day_icon">
                 <img src="" alt="" />
               </div>
               <div class="wether_info__daily_forecast_day_minmax">
                 <span><span class="min"></span>&deg;</span>
                 <span><span class="max"></span>&deg;</span>
-              </div>`)
-  );
+              </div>`;
+  });
 };
 
 const addLoadingStateToHourlyElements = () => {

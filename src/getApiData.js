@@ -78,11 +78,7 @@ export const getCurrentWeather = async (latitude, Longitude) => {
       return result.current;
     }
   } catch (error) {
-    if (error.error) {
-      return `${error.reason}`;
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 
@@ -101,11 +97,7 @@ export const getDailyWeather = async (latitude, longitude) => {
       return result;
     }
   } catch (error) {
-    if (error.error) {
-      return `${error.reason}`;
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 
@@ -125,8 +117,6 @@ export const getHourlyWeather = async (latitude, longitude) => {
     }
   } catch (error) {
     if (error.error) {
-      return `${error.reason}`;
-    } else {
       throw error;
     }
   }
@@ -176,7 +166,7 @@ export const getCurrentLonAndLatByCity = async (city) => {
     }
     return { cities, latitudes, longitudes, contries };
   } catch (error) {
-    console.error(error)
+    console.error(error.message);
     throw error;
   }
 };

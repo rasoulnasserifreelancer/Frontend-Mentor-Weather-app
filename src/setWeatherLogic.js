@@ -12,7 +12,6 @@ export const setWetherInfo = (weatherInfo, location) => {
 };
 
 const setCurrentWetherInfo = (res, location) => {
-  console.log("running set current weather info, res is ", res,"location is:", location);
   console.log(getCurrentWeatherElements().precipitationElement)
   getCurrentWeatherElements().precipitationElement.innerText = `${
     res?.precipitation ?? "--"
@@ -24,10 +23,10 @@ const setCurrentWetherInfo = (res, location) => {
     res?.relative_humidity_2m ?? "--"
   }`;
   getCurrentWeatherElements().apparentTemp.innerText = `${
-    res?.apparent_temperature ?? "--"
+    res?.apparent_temperature.toFixed(0) ?? "--"
   }`;
   getCurrentWeatherElements().degElement.innerText = `${
-    res?.temperature_2m ?? "--"
+    res?.temperature_2m.toFixed(0)  ?? "--"
   }`;
   getCurrentWeatherElements().poster_weather_city_icon.src =
     matchWetherCodeToIcon(res?.weather_code);
@@ -45,11 +44,11 @@ const setDailyWetherInfo = (res) => {
   });
 
   getDailyWeatherElements().dayMaxElements.forEach(
-    (max, index) => (max.innerText = res.daily.temperature_2m_max[index])
+    (max, index) => (max.innerText = res.daily.temperature_2m_max[index].toFixed(0) )
   );
 
   getDailyWeatherElements().dayMinElements.forEach(
-    (min, index) => (min.innerText = res.daily.temperature_2m_min[index])
+    (min, index) => (min.innerText = res.daily.temperature_2m_min[index].toFixed(0) )
   );
 
   getDailyWeatherElements().dayIconImgs.forEach((img, index) => {
@@ -113,7 +112,7 @@ export const setHourlyWetherInfo = (res) => {
     ) {
       theDayDailyInfo.push({
         time: new Date(res.hourly.time[i]).toLocaleTimeString(),
-        temp: res.hourly.temperature_2m[i],
+        temp: res.hourly.temperature_2m[i].toFixed(0) ,
         code: res.hourly.weather_code[i],
       });
     }

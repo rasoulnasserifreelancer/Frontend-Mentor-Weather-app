@@ -24,13 +24,13 @@ currentDayElement.addEventListener("change", async (e) => {
   } catch (error) {
     if (error instanceof NotFoundError) {
       showErrorElement(`${error.message}`, "../assets/images/icon-retry.svg");
-    } else if (error instanceof TypeError) {
+    } else if (error instanceof TypeError && error.message === 'Failed to fetch') {
       showErrorElement(
         "network access error",
         "../assets/images/icon-retry.svg"
       );
     } else {
-      showErrorElement(`${error.message}`, "../assets/images/icon-retry.svg");
+      showErrorElement(`${error.reason}`, "../assets/images/icon-retry.svg");
     }
   }
 });

@@ -68,7 +68,7 @@ const changeWindSpeedToKmhForAllElements = () => {
   const windElementUnit = getCurrentWeatherElements().windElementUnit;
 
   windElement.innerText = mphToKmh(windElement.innerText);
-  windElementUnit.nodeValue = " Km/h";
+  windElementUnit.nodeValue = " Kmh";
 };
 
 const changeWindSpeedToMphForAllElements = () => {

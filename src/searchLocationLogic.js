@@ -26,9 +26,12 @@ const getResultOfSearch = async (e) => {
     } catch (error) {
       if (error instanceof NotFoundError) {
         showLocationSearchResult(error.message);
-      }else if(error instanceof TypeError){
+      }else if(error instanceof TypeError && error.message === 'Failed to fetch'){
+        console.log(error.message)
         showErrorElement("network access error", "./assets/images/icon-retry.svg");
-      }
+      }else {
+      showErrorElement(`${error.reason}`, "../assets/images/icon-retry.svg");
+    }
     }
   }
   if (e.target.value.length <= 2) {
@@ -99,11 +102,16 @@ SearchResultContainerElement.addEventListener("click", async (e) => {
       // SetLocation(cityName, countryName);
     } catch (error) {
       console.log(error);
-      if(error instanceof TypeError){
-        showErrorElement("network access error", "../assets/images/icon-retry.svg");
-      }else {
-        showErrorElement(`${error.message}`, "../assets/images/icon-retry.svg");
-      }
+      if (error instanceof NotFoundError) {
+      showErrorElement(`${error.message}`, "../assets/images/icon-retry.svg");
+    } else if (error instanceof TypeError && error.message === 'Failed to fetch') {
+      showErrorElement(
+        "network access error",
+        "../assets/images/icon-retry.svg"
+      );
+    } else {
+      showErrorElement(`${error.reason}`, "../assets/images/icon-retry.svg");
+    }
     }
   }
 });

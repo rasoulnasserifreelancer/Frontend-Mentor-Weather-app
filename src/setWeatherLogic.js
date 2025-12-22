@@ -14,13 +14,13 @@ export const setWetherInfo = (weatherInfo, location) => {
 const setCurrentWetherInfo = (res, location) => {
   console.log(getCurrentWeatherElements().precipitationElement)
   getCurrentWeatherElements().precipitationElement.innerText = `${
-    res?.precipitation ?? "--"
+    res?.precipitation.toFixed(0) ?? "--"
   }`;
   getCurrentWeatherElements().windElement.innerText = `${
-    res?.wind_speed_10m ?? "--"
+    res?.wind_speed_10m.toFixed(0) ?? "--"
   }`;
   getCurrentWeatherElements().humidityElement.innerText = `${
-    res?.relative_humidity_2m ?? "--"
+    res?.relative_humidity_2m.toFixed(0) ?? "--"
   }`;
   getCurrentWeatherElements().apparentTemp.innerText = `${
     res?.apparent_temperature.toFixed(0) ?? "--"

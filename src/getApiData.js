@@ -142,11 +142,11 @@ export const getCurrentCityByLonAndLat = async (latitude, longitude) => {
     if (!city || !country) {
       throw new NotFoundError("location not found");
     }
+    if (result.status.code !== 200) {
+      throw new Error(`Error with ${result.status.code} status and ${result.status.message} happened`)
+    }
     return { city, country };
   } catch (err) {
-    if (err instanceof NotFoundError) {
-      return err.message;
-    }
     throw err;
   }
 };

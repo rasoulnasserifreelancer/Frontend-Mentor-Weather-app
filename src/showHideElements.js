@@ -43,23 +43,24 @@ export const hideDailyElement = (element) => {
 
 
 export const showLocationSearchResult = (result) => {
+  console.log(result)
   const searchResult = document.createElement("div");
   searchResult.setAttribute('role', 'listbox')
   searchResult.setAttribute('tabindex', '0')
   const SearchResultContainerElement = getSearchElemensts().SearchResultContainerElement;
   
   SearchResultContainerElement.innerHTML = "";
-  const cities = result.cities
-      .map((name) => `<p role="listitem" tabindex="0">${name}`);
-      console.log(cities)
-  const contries = result.contries
-      .map((name) => `,  ${name}</p>`);
-      console.log(contries)
-  let cityAndCountry = ["", "", "", ""];
+
   if (typeof result === "string") {
     searchResult.innerHTML = `<p>${result}</p>`;
   } else {
-    cityAndCountry = cityAndCountry.map((v, i) => cities[i] + contries[i]);
+      const cities = result.cities
+      .map((name) => `<p role="listitem" tabindex="0">${name}`);
+  const contries = result.contries
+      .map((name) => `,  ${name}</p>`);
+  let cityAndCountry = new Array(" ", " ", " ", " ");
+    cityAndCountry = cityAndCountry.flatMap((v, i) => cities[i]? cities[i] + contries[i] : undefined);
+
     searchResult.innerHTML = cityAndCountry.join(" ");
     addPropertiesToPs(searchResult.children, result);
   }

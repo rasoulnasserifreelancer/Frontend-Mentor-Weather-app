@@ -102,15 +102,27 @@ const addSelectedIconAndClass = (element, i) => {
 };
 
 const changeAllElementsToImperial = () => {
-  changeTempToFarForAllElements();
-  changeWindSpeedToMphForAllElements();
-  changeprecipitationFromMmToInch();
+  if (!temperatureFar.classList.contains("selected")) {
+    changeTempToFarForAllElements();
+  }
+  if (!windspeedMph.classList.contains("selected")) {
+    changeWindSpeedToMphForAllElements();
+  }
+  if (!precipitationIn.classList.contains("selected")) {
+    changeprecipitationFromMmToInch();
+  }
 };
 
 const changeAllElementsToMetric = () => {
-  changeTempToCelForAllElements();
-  changeWindSpeedToKmhForAllElements();
-  changeprecipitationFromInchToMm();
+  if (!temperatureCel.classList.contains("selected")) {
+    changeTempToCelForAllElements();
+  }
+  if (!windspeedKmh.classList.contains("selected")) {
+    changeWindSpeedToKmhForAllElements();
+  }
+  if (!precipitationMm.classList.contains("selected")) {
+    changeprecipitationFromInchToMm();
+  }
 };
 
 const dropdownCallbacks = (e) => {

@@ -1,3 +1,5 @@
+import { getCurrentCityByLonAndLat, NotFoundError } from "./getApiData.js";
+
 import {
   getDropdownElements,
   getErrorElement,
@@ -21,7 +23,7 @@ setLoadingState();
 window.onload = () => {
   navigator.geolocation.getCurrentPosition(
     setPsitionCallbck,
-    setFallbackForLocation
+    setFallbackForLocation, {timeout:10000, }
   );
 };
 
@@ -53,15 +55,16 @@ export const setPsitionCallbck = async (pos) => {
 };
 
 const ErrorBtn = getErrorElement().ErrorBtn;
-ErrorBtn.addEventListener("click", hideErrorElement);
+ErrorBtn.addEventListener("click", ()=>hideErrorElement());
 
 const setFallbackForApi = (err) => {};
 
 const setFallbackForLocation = (err) => {
+  console.log(err)
   hideWeatherInfoElements();
   removeLoadingState();
   showErrorElement(
-    "We Couldn't access your location, please try searching for your location",
+    "please try searching for your location",
     "https://img.icons8.com/neon/96/delete-sign.png"
   );
 };

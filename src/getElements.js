@@ -142,8 +142,11 @@ const searchLocationSearchElement = document.getElementById("search_input");
 const SearchResultContainerElement = document.getElementById(
   "search-container-result"
 );
+const SearchResultContainerForm = document.getElementById(
+  "search-container"
+);
 return {
-  searchLocationBtnElement, searchLocationSearchElement, SearchResultContainerElement
+  searchLocationBtnElement, searchLocationSearchElement, SearchResultContainerElement, SearchResultContainerForm
 }
 }
 

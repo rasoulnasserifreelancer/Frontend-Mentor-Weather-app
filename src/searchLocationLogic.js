@@ -11,7 +11,7 @@ import { hideErrorElement, hideWeatherInfoElements, showErrorElement, showWeathe
 
 let weatherInfogotByUserSearch;
 
-const searchLocationBtnElement = getSearchElemensts().searchLocationBtnElement;
+const searchFormElement = getSearchElemensts().SearchResultContainerForm;
 const searchLocationSearchElement = getSearchElemensts().searchLocationSearchElement;
 const SearchResultContainerElement = getSearchElemensts().SearchResultContainerElement;
 
@@ -121,10 +121,13 @@ SearchResultContainerElement.addEventListener("click", async (e) => {
 // };
 
 
-searchLocationBtnElement.addEventListener('click', async (e)=> {
-    const inputValue = searchLocationSearchElement.value;
+searchFormElement.addEventListener('submit', async (e)=> {
+  e.preventDefault();
+  const inputValue = searchLocationSearchElement.value;
+  console.log("input value", inputValue)
     try {
       const result = await getCurrentLonAndLatByCity(inputValue);
+      // console.log(result);
       const cityIndex = result?.cities?.findIndex((city) => city.toLowerCase() === inputValue.toLowerCase());
       if (result.cities || cityIndex !== -1){
         const city = result.cities[cityIndex];
@@ -149,7 +152,7 @@ searchLocationBtnElement.addEventListener('click', async (e)=> {
       }else if(error instanceof TypeError){
         showErrorElement("network access error", "../assets/images/icon-retry.svg");
       }else {
-        showErrorElement(`${error.message}`, "../assets/images/icon-retry.svg");
+        showErrorElement(`${error?.message ? error.message : error}`, "../assets/images/icon-retry.svg");
       }
     }
 })
